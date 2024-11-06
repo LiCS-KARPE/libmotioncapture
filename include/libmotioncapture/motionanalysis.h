@@ -10,7 +10,8 @@ namespace libmotioncapture {
     public:
         MotionCaptureMotionAnalysis(
                 const std::string &hostname,
-                int updateFrequency = 100);
+                unsigned short cortex_port,
+                unsigned short multicast_port);
 
         virtual ~MotionCaptureMotionAnalysis();
 
@@ -22,7 +23,8 @@ namespace libmotioncapture {
 
         virtual RigidBody rigidBodyByName(const std::string &name) const override;
 
-        virtual bool supportsRigidBodyTracking() const override;
+        virtual bool supportsRigidBodyTracking() const override { return true; }
+        
 
     private:
         MotionCaptureMotionAnalysisImpl *pImpl;

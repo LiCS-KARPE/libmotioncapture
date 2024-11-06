@@ -212,7 +212,10 @@ namespace libmotioncapture {
     else if (type == "motionanalysis")
     {
       mocap = new libmotioncapture::MotionCaptureMotionAnalysis(
-        getString(cfg, "hostname", "localhost"));
+        getString(cfg, "hostname", "127.0.0.1"),
+        getInt(cfg, "cortex_port", 1510),
+        getInt(cfg, "multicast_port", 1511)
+      );
     }
 #endif
 #ifdef ENABLE_FZMOTION
