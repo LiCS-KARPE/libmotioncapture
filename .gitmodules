@@ -14,3 +14,6 @@
 [submodule "externalDependencies/NatNetSDKCrossplatform"]
 	path = deps/NatNetSDKCrossplatform
 	url = https://github.com/whoenig/NatNetSDKCrossplatform.git
+[submodule "deps/cortex_sdk_linux"]
+	path = deps/cortex_sdk_linux
+	url = git@github.com:LiCS-KARPE/cortex_sdk_linux.git
