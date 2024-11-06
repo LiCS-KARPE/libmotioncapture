@@ -3,38 +3,24 @@ set -ex
 
 PYVERSION=${1?"Error: expected the python version"}
 
-# Prefer running with podman
-DOCKER=docker
-if which podman
-then
-    DOCKER=podman
-fi
+# We are in the image, building!
+PYVERCL=${PYVERSION//./}
+# Bins located in paths similar to /opt/python/cp38-cp38/bin
+PYBIN="/opt/python/cp${PYVERCL}-cp${PYVERCL}/bin"
+echo "Using python path $PYBIN"
 
-# Test if we are currently in the builder image
-if [ ! -d /opt/python ]
-then
-    # We are not in the image, start the image with the build script
-    $DOCKER run --rm -v $(realpath $(dirname $0)/../..):/io quay.io/pypa/manylinux_2_28_x86_64 /io/tools/build/build-wheels.sh $PYVERSION
-else
-    # We are in the image, building!
-    PYVERCL=${PYVERSION//./}
-    # Bins located in paths similar to /opt/python/cp38-cp38/bin
-    PYBIN="/opt/python/cp${PYVERCL}-cp${PYVERCL}/bin"
-    echo "Using python path $PYBIN"
+yum install -y boost-devel eigen3-devel
 
-    yum install -y boost-devel eigen3-devel
+cd /io
 
-    cd /io
+PATH=${PYBIN}:$PATH
+"${PYBIN}/pip" install -U "setuptools>=42" wheel ninja "cmake>=3.12"
+"${PYBIN}/python" setup.py bdist_wheel
 
-    PATH=${PYBIN}:$PATH
-    "${PYBIN}/pip" install -U "setuptools>=42" wheel ninja "cmake>=3.12"
-    "${PYBIN}/python" setup.py bdist_wheel
+WHEELS=$(echo dist/*.whl)
 
-    WHEELS=$(echo dist/*.whl)
+for whl in $WHEELS; do
+    auditwheel repair "$whl" -w dist/
+done
 
-    for whl in $WHEELS; do
-        auditwheel repair "$whl" -w dist/
-    done
-
-    rm $WHEELS
-fi
+rm $WHEELS
