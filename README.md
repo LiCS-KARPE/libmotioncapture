@@ -3,33 +3,13 @@
 # libmotioncapture
 Interface Abstraction for Motion Capture System APIs such as VICON, OptiTrack, Qualisys, Nokov, FZMotion, or VRPN.
 
-This can be used as C++ library or Python package. For Python, use
-
-```
-pip install motioncapture
-```
-
 For C++, follow the instructions below.
 
-This is a fork of https://github.com/USC-ACTLab/libmotioncapture/ with the following changes:
+This is a fork of https://github.com/IMRCLab/libmotioncapture/ with the following changes:
 
-- Python bindings
-- Factory method
-- Refactored API
-- Support for VRPN by default
-
-## Compile options
-By default, `libmotioncapture` supports the following hardware:
-
-- VICON - SDK git submodule
-- Qualisys - SDK git submodule
-- OptiTrack - binary parsing over network (no dependency)
-- VRPN - SDK git submodule
-- NOKOV - manually obtain SDK and copy to deps/nokov_sdk/
-- FZMotion - no dependency
-- Motion Analysis - manually obtain SDK and copy to deps/cortex_sdk_linux/
-
-CMake flags can be used to disable individual systems in `CMakeLists.txt`.
+- Added Motion Analysis SDK dependency
+- Removed unused submodules
+- Fixed orientation calculation
 
 ## Prerequisites
 
