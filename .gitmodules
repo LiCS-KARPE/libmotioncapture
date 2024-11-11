@@ -3,4 +3,4 @@
 	url = https://github.com/pybind/pybind11.git
 [submodule "deps/cortex_sdk_linux"]
 	path = deps/cortex_sdk_linux
-	url = git@github.com:LiCS-KARPE/cortex_sdk_linux.git
+	url = https://github.com/LiCS-KARPE/cortex_sdk_linux.git
