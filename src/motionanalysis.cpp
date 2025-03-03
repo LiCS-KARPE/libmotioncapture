@@ -61,7 +61,7 @@ namespace libmotioncapture {
     MotionCaptureMotionAnalysis::MotionCaptureMotionAnalysis(
             const std::string &hostname,
             unsigned short cortex_port = 1510,
-            unsigned short multicast_port = 1001
+            unsigned short multicast_port = 1511
         ) {
         pImpl = new MotionCaptureMotionAnalysisImpl();
 
